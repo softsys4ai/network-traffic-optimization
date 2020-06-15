@@ -9,6 +9,7 @@
 - `scipy`
 - `seaborn`
 - `matplotlib`
+- `yaml`
 
 ## Run Instructions
 
