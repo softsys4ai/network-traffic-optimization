@@ -1,9 +1,8 @@
 """-----------------------------------------------------------------------------
----------------------------LSTM: Long Short Term Memory-------------------------
+-------------------------------- LSTM Architecture -----------------------------
 --------------------------------------------------------------------------------
 """
-import re
-import sys
+import os
 import time
 import math
 import keras
@@ -28,63 +27,6 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import ConstantKernel, Matern
 
 seed(16)
-
-class Preprocess(object):
-    """-------------------------------------------------------------------------
-    This class is used to perform operations on data
-    ----------------------------------------------------------------------------
-    """
-    def __init__(self):
-        print ("initializing preprocess class")
-        self.data_dim=24
-        self.batch_size=1
-        self.timesteps=8
-        self.n_features=1
-        self.bounds={"L1": [[1, 100], [5, 100], [0, 1]],
-                     "L2":  [[1, 100], [1, 100], [5, 100], [0, 1]],
-                     "L3":  [[1, 100], [1, 100], [1, 100], [5, 100], [0, 1]],
-                     "L4":  [[1, 100], [1, 100], [1, 100], [1, 100], [5, 100], [0, 1]]
-        }
-
-    def get_data(self, link):
-        """This function is used to get data"""
-        # get data
-        df = pd.read_csv('./data/Trans_atlantic.csv', header=None)
-        df = df.iloc[1:]
-        df = df.rename(columns = {0: "Time", int(link):"Out"})
-        dates = df['Time'].apply(lambda x: datetime.strptime(x, '%d-%m-%Y %H:%M'))
-	    # normalize the dataset
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        traffic_scaler = MinMaxScaler(feature_range=(0,1))
-        return (df, scaler, traffic_scaler)
-
-    def process_data(self, df, scaler,
-                 traffic_scaler, print_shapes = True):
-        """This function is used to process train and test data"""
-
-        X = df.iloc[:,1].values
-        Y = df.iloc[:,1].shift(1).fillna(0).values
-
-        # normalize
-        X = scaler.fit_transform(X.reshape(-1,1))
-        Y = traffic_scaler.fit_transform(Y.reshape(-1,1))
-        c=np.array(Y)
-        np.savetxt("./data/real-Y1.csv", c, delimiter=',')
-        X = X.reshape(X.shape[0], 1, 1)
-        Y = Y.reshape(Y.shape[0], 1)
-
-        # train-test split
-        X_train = X[:2112]
-        Y_train = Y[:2112]
-        X_val = X[2112:2612]
-        Y_val = Y[2112:2612]
-        X_test=X[2612:]
-        Y_test=Y[2612:]
-        return (scaler, traffic_scaler, X_train,
-               Y_train, X_val, Y_val,
-               X_test, Y_test)
-
-
 class Architecture(object):
     """-------------------------------------------------------------------------
     This class is used to construct LSTM architectures
@@ -103,7 +45,7 @@ class Architecture(object):
         """This function is used to construct a 1-layer LSTM"""
 
         model = Sequential()
-	    # layer: 1
+        # layer: 1
         model.add(LSTM(num_neurons, activation='tanh', return_sequences=True,
                        batch_input_shape=(1, X_train.shape[1], X_train.shape[2]),
                        stateful=True))
@@ -113,7 +55,7 @@ class Architecture(object):
         model.compile(loss='mean_squared_error', optimizer='adam', metrics = ['accuracy'])
         print(model.summary())
         size = self.size(model)
-        
+
         hist=model.fit(X_train, Y_train, epochs=num_epochs,
                        batch_size=1, shuffle=False, validation_data = (X_val, Y_val),
                        verbose = 0)
@@ -235,4 +177,4 @@ class Architecture(object):
         err = sqrt(mean_squared_error(inv_y, inv_yhat))
         print('Test RMSE: {0}'.format(err))
         print ('End Time: {0}'.format(it))
-        return err, it
+        return -err, it

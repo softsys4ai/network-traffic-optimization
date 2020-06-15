@@ -7,6 +7,8 @@
 - `numpy`
 - `scikit-learn`
 - `scipy`
+- `seaborn`
+- `matplotlib`
 
 ## Run Instructions
 
@@ -22,8 +24,11 @@ $ python BO.py 3 L1
 > To predict on link 4 using 4 layer LSTM:
 ```
 $ python BO.py 4 L4
-```
+``
 ## Contacts
 ```
 email: miqbal@email.sc.edu
 ```
+## Acknowledgement
+
+This project is a collaboration with Lawrence Berkeley National Laboratory under DOE Contract number for Deep Learning FP00006145 investigating Large-Scale Deep Learning for Intelligent Networks.

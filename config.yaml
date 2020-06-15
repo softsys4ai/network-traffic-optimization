@@ -1,0 +1,74 @@
+config:
+    fnames: 
+        input: "data/Trans_atlantic.csv"
+        output: "output"
+        cur_proc_input: "data/real-Y1.csv"
+    size:
+        train:
+            lb: 0
+            ub: 2112
+        val:
+            lb: 2112
+            ub: 2612 
+        test:
+            lb: 2612 
+    design_space:
+        L1: 
+            num_neurons: 
+                lb: 1 
+                ub: 100
+            num_epochs: 
+                lb: 5 
+                ub: 100
+            dropout:
+                lb: 0
+                ub: 1
+        L2: 
+            num_neurons_layer_1: 
+                lb: 1 
+                ub: 100
+            num_neurons_layer_2: 
+                lb: 1 
+                ub: 100
+            num_epochs:
+                lb: 5 
+                ub: 100
+            dropout:
+                lb: 0 
+                ub: 1
+        L3: 
+            num_neurons_layer_1: 
+                lb: 1 
+                ub: 100
+            num_neurons_layer_2: 
+                lb: 1 
+                ub: 100
+            num_neurons_layer_3: 
+                lb: 1 
+                ub: 100
+            num_epochs:
+                lb: 5 
+                ub: 100
+            dropout:
+                lb: 0 
+                ub: 1 
+        L4: 
+            num_neurons_layer_1: 
+                lb: 1 
+                ub: 100
+            num_neurons_layer_2: 
+                lb: 1 
+                ub: 100
+            num_neurons_layer_3: 
+                lb: 1 
+                ub: 100
+            num_neurons_layer_4: 
+                lb: 1 
+                ub: 100
+            num_epochs:
+                lb: 5 
+                ub: 100
+            dropout:
+                lb: 0 
+                ub: 1
+       
