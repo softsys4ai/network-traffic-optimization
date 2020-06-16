@@ -149,7 +149,7 @@ if __name__=="__main__":
     X_init = initialize(bounds)
     Y_init = []
     # get initial measurements
-
+    
     for config in X_init:
         cur_err, cur_inf_time, cur_size = get_Y(cur_arch, ARCH, X_train,
                                                 Y_train, X_val, Y_val,
@@ -202,4 +202,5 @@ if __name__=="__main__":
     bo_end = time.time()-bo_start
     print ("Time : {0}".format(bo_end))
     # visualize
-    Visualize(foutput)
+    #Visualize(foutput)
+    
