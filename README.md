@@ -27,7 +27,7 @@ $ python BO.py 3 L1
 $ python BO.py 4 L4
 ```
 - To run optimization on all 8 links for an architetcure please use the following
-comman from your project directory 
+command from your project directory 
 ```
 $ sh run.sh [lstm-architecture]
 ```
