@@ -42,7 +42,8 @@ $ sh run.sh L4
 
 ## Contacts
 ```
-email: miqbal@email.sc.edu
+Shahriar: miqbal@email.sc.edu
+Bashir: bmohammed@lbl.gov
 ```
 
 ## Acknowledgement
